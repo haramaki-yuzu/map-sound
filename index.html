@@ -18,8 +18,15 @@
     <p>
         猫の顔をクリックするとそれぞれ違う音が再生されるよ(=^・・^=)
     </p>
+    <p id="message">
+        にゃん
+    </p>
     <script>
         $(function(){
+            $('area').on('click' ,function(){
+                $('#message').text('にゃーーーーーーーーーーーーーん');
+            });
+
             var audio = $('audio').get(0);
             var nowPlaying = "";
 
