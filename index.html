@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sound Play</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <img src="map.jpg" usemap="#sample">
+    <audio preload="auto">
+    </audio>
+    <map name="sample">
+        <area id="left" shape="circle" coords="180,200,70" nohref="nohref" alt="sound1">
+        <area id="right" shape="circle" coords="415,215,70" nohref="nohref" alt="sound2">
+    </map>
+    <script>
+        $(function(){
+            var audio = $('audio').get(0);
+            var nowPlaying = "";
+
+            $('#left').on('click' ,() => playMusic("sound1.ogg"));
+            $('#right').on('click' ,() => playMusic("sound2.ogg"));
+            
+            /**
+            * 音楽を再生する
+            * @param src 音楽ファイルのファイルパス
+            */
+            function playMusic (src) {
+                if(src === nowPlaying) {
+                    //再生中だったら停止
+                    stop();
+                    nowPlaying = "";
+                } else {
+                    //停止中だったら再生
+                    nowPlaying = src;
+                    play(src);
+                    
+                }
+            }
+            //音声を再生
+            function play(src) {
+                audio.src = src;
+                audio.play();
+            }
+            //音声を停止。audioタグのstopメソッドが存在しないので、一時停止して再生時間を０に戻すことで実現
+            function stop() {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        })
+    </script>
+</body>
+</html>
